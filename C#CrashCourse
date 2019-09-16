@@ -57,7 +57,126 @@ namespace Rextester
             {
                 Console.WriteLine(writer);
             }
-                
+            if(meaningOfLife == 42)
+            {
+                bool inScope = true;
+            }
+            
+            
+            //starting Structures and Classes
+            Point2D myPoint = new Point2D();
+                //this creates a new struct object
+            
+             myPoint.X = 10;
+             myPoint.Y = 20;
+                //these are the properties of Point2D
+                //the way to access the properties is through the dot operatpr followed by the property name, after which you can assign the value
+                //defined the state of the object, now you can add the behaviour
+                //this is done by creating methods
+             Point2D anotherPoint = new Point2D();
+             anotherPoint.X = 5;
+             anotherPoint.Y = 15;
+            
+            myPoint.AddPoint(anotherPoint);
+            
+            Console.WriteLine(myPoint.X);
+            Console.WriteLine(myPoint.Y);
+            
+            //Classes start here
+            Point2D yetAnotherPoint = myPoint;
+            yetAnotherPoint.X =100;
+            //this assigns and new Point2D object by assigning an exsisting point2d object to a vairable
+            //then changed the property of x
+            
+            Console.WriteLine(myPoint.X);
+            Console.WriteLine(yetAnotherPoint.X);
+            
+            Point2DRef pointRef = new Point2DRef();
+            pointRef.X = 20;
+            Point2DRef anotherRef = pointRef;
+            anotherRef.X = 25;
+                //this code creates an instance of the point2dref object, then assigns a value to the x
+                //then the x is assigned another ref, which is changed to 25
+                //next line prints those changes
+            Console.WriteLine(pointRef.X);
+            Console.WriteLine(anotherRef.X);
+            //two references of the same object, change one, it changes both
+            
+            pointRef = null;
+            //the variable point ref is no longer accessible, but the object is still in the memory
+            anotherRef.X = 125;
+            Console.WriteLine(anotherRef.X);
+            
+            anotherRef = null;
+            //becomes a garbage collector
+            
+            RenFairePerson person = new RenFairePerson();
+            person.Name = "Igor the Ratcatcher";
+            person.SayHello();
+            //first you set the name of the person
+            //this property is obtained from perent class
+            //then you override SayHello
+            
+
+
         }
     }
+    
+    struct Point2D
+    {
+            public int X;
+            public int Y;
+                    
+        public void AddPoint(Point2D anotherPoint)
+        {
+                   
+            //void indicates the return of the method, which is nothing
+            //the paraentheis contains the parameters being passed into the method
+            //the method below is meant to add two different points together
+            this.X = this.X + anotherPoint.X;
+            this.Y = this.Y + anotherPoint.Y;
+        }
+    }
+    
+    class Point2DRef
+    {
+        public int X;
+        public int Y;
+        
+        public void AddPoint(Point2DRef anotherPoint)
+        {
+            this.X = this.X + anotherPoint.X;
+            this.Y = this.Y + anotherPoint.Y;
+            //we are increasing the current objects x and y values with the equivalent x and y variables from another Point2D object
+        }
+        //class is a reference type, exists in heap
+        //heap is long term memory
+        //example, player character
+    }
+    
+    class Person
+    {
+        public string Name;
+        public virtual void SayHello()
+        {
+            Console.WriteLine("Hello");
+        }
+        //this class contains a Name as well as a method named SayHello()
+        //using virtual because a sub-class will override, reimplement the method to provide specialized behaviour
+    }
+    
+    class RenFairePerson:Person
+    {
+        public override void SayHello()
+        {
+            base.SayHello();
+            //this calls out the parent method, it prints hello then huzzah
+            Console.Write("Huzzah!");
+        }
+        //RenFairePerson extends person
+        //colon after person indicates a super class
+        //next, the class implements SayHello, it is overriding the parent method by the override keyword
+    }
+
+
 }
